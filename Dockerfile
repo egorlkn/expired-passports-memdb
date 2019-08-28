@@ -6,8 +6,8 @@ WORKDIR /init
 
 COPY . .
 
-HEALTHCHECK --start-period=3600s --timeout=3s --retries=1 CMD ["bash", "/init/healthcheck.sh"]
+HEALTHCHECK --start-period=3600s --timeout=3s --retries=1 CMD ["/bin/bash", "/init/readiness-check.sh"]
 
-ENTRYPOINT ["bash", "/init/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/init/entrypoint.sh"]
 
 EXPOSE 6379

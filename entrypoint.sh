@@ -4,7 +4,7 @@
 set -m
 
 # Mark data loading as in process
-echo 'In process' > data_load_status
+echo -n 'In process' > data_load_status
 
 # Start Redis and put it in the background
 redis-server redis.conf &
@@ -13,7 +13,7 @@ redis-server redis.conf &
 sh load_data.sh
 
 # Mark data loading as completed
-echo 'Completed' > data_load_status
+echo -n 'Completed' > data_load_status
 
 # Bring the Redis back into the foreground
 fg %1
