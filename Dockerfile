@@ -11,3 +11,5 @@ HEALTHCHECK --start-period=3600s --timeout=3s --retries=1 CMD ["/bin/bash", "/in
 ENTRYPOINT ["/bin/bash", "/init/entrypoint.sh"]
 
 EXPOSE 6379
+
+CMD ["/init/redis.conf"]
