@@ -1,19 +1,17 @@
 #!/bin/bash
 
-# Turn on bash's job control
-set -m
+# Send signal to child processes
+trap 'pkill -INT -P $$' SIGINT
+trap 'pkill -TERM -P $$' SIGTERM
 
-# Mark data loading as in process
-echo -n 'In process' > /init/data_load_status
-
-# Start Redis and put it in the background
+# Start Redis
 redis-server "$1" &
 
-# Load data to Redis
-/bin/bash /init/load_data.sh
+# Start to load data into Redis
+/bin/bash /init/load_data.sh &
 
-# Mark data loading as completed
-echo -n 'Completed' > /init/data_load_status
+# Wait the terminate of child processes before exit
+wait %2
+wait %1
 
-# Bring the Redis back into the foreground
-fg %1
+exit 0
